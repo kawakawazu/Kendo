@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Player1Move : MonoBehaviour
 {
     public SinGiTai singitai;
+    public Player2Move P2M;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,7 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            singitai.Maai(1,-3);
+            singitai.Maai(pos.x,P2M.Player2pos.x);
         }
     }
 }
