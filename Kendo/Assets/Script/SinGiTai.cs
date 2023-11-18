@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SinGiTai : MonoBehaviour
 {
@@ -31,59 +32,40 @@ public class SinGiTai : MonoBehaviour
         }else{
             StartCoroutine(Kutin(Bad));
         }
-        singitai.Sisei(Point);
+        //singitai.Sisei(Point);
+        StartCoroutine(Sisei(Point));
     }
 
     //姿勢の判定
-    void Sisei(int Point){
+    IEnumerator Sisei(int Point){
         Debug.Log("sisei");
-        int Click=4;
-        //bool Mode=true;
+        float Click=0;
+        //float Time = 3f;
 
-        //3秒間
-        //whileが無限ループになってるからフリーズする
-        //Debug.Log(Mode);
-        //StartCoroutine(TimeCount(3.0f,Click));
-        //Debug.Log(Mode);
-       
-        /*
-           while(Mode==true){
-                
-                if (Input.GetKey(KeyCode.W)){
-                    Click++;
-                    Debug.Log(Click);
-                }
+        //StartCoroutine(CountButtonClicks(Click,Time));
+        yield return CountButtonClicks(x => Click = x);
 
-                StartCoroutine(TimeCount(0.2f));
-                Click--;
+            //Debug.Log("3秒間のクリック回数: " + Click); // 結果を表示
+        
+            if(8<=Click){
+                Point=Point+2;
+                Debug.Log("良");
+                StartCoroutine(Kutin(Best));
+            }else if(4<=Click){
+                Point=Point+1;
+                Debug.Log("普");
+                StartCoroutine(Kutin(Good));
+            }else{
+                Debug.Log("悪");
+                StartCoroutine(Kutin(Bad));
             }
-           */ 
-           for (int i = 1 ; i < 4 ; i++ )
-        {
-            if (Input.GetKey(KeyCode.W)){
-                    Click++;
-                    Debug.Log(Click);
-                }else{
-                    Click--;
-                }
-
-            StartCoroutine(TimeCount(2.0f));
-        }
+        
+        singitai.Kisei(Point);
             
-            //Debug.Log(Mode);
+    }
 
-        if(8<=Click){
-            Point=Point+2;
-            Debug.Log("良");
-            StartCoroutine(Kutin(Best));
-        }else if(4<=Click){
-            Point=Point+1;
-            Debug.Log("普");
-            StartCoroutine(Kutin(Good));
-        }else{
-            Debug.Log("悪");
-            StartCoroutine(Kutin(Bad));
-        }
+    void Kisei(int Point){
+        Debug.Log("気勢");
     }
 
 
@@ -100,29 +82,40 @@ public class SinGiTai : MonoBehaviour
     yield break;
 } 
 
-//時間数える
-    IEnumerator TimeCount(float time) 
+private System.Collections.IEnumerator CountButtonClicks(Action<float> callback)
     {
-        for (int i = 1 ; i < time+1 ; i++ )
-        {
-            /*
-            if (Input.GetKey(KeyCode.W)){
-                    Click++;
-                    Debug.Log(Click);
-                }else{
-                    Click--;
-                }
-                */
+        float timer = 3f; // カウントする時間（秒）
+        float Click=4f;
 
-            Debug.Log("今" + i + "秒です");
-            yield return new WaitForSeconds(1.0f);
-            if (i == time)
+        while (timer > 0f)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                Debug.Log("コルーチンを終了しました");
-                //yield return Click;
-                yield break;
-             }
-         }
+                Click++; // スペースキーが押されたらカウントを増やす
+            }else{
+                Click = Click-0.03f;
+            }
+
+            timer -= Time.deltaTime; // 時間を減らす
+            yield return null; // 次のフレームまで待機
+        }
+
+        Debug.Log("3秒間のクリック回数: " + Click); // 結果を表示
+        callback.Invoke(Click);
+        /*
+        if(8<=Click){
+                Point=Point+2;
+                Debug.Log("良");
+                StartCoroutine(Kutin(Best));
+            }else if(4<=Click){
+                Point=Point+1;
+                Debug.Log("普");
+                StartCoroutine(Kutin(Good));
+            }else{
+                Debug.Log("悪");
+                StartCoroutine(Kutin(Bad));
+            }
+            */
     }
     
     
