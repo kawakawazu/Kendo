@@ -38,13 +38,13 @@ public class SinGiTai : MonoBehaviour
     void Sisei(int Point){
         Debug.Log("sisei");
         int Click=4;
-        bool Mode=true;
+        //bool Mode=true;
 
         //3秒間
         //whileが無限ループになってるからフリーズする
-        Debug.Log(Mode);
-        StartCoroutine(TimeCount(3.0f));
-        Debug.Log(Mode);
+        //Debug.Log(Mode);
+        //StartCoroutine(TimeCount(3.0f,Click));
+        //Debug.Log(Mode);
        
         /*
            while(Mode==true){
@@ -58,8 +58,19 @@ public class SinGiTai : MonoBehaviour
                 Click--;
             }
            */ 
+           for (int i = 1 ; i < 4 ; i++ )
+        {
+            if (Input.GetKey(KeyCode.W)){
+                    Click++;
+                    Debug.Log(Click);
+                }else{
+                    Click--;
+                }
+
+            StartCoroutine(TimeCount(2.0f));
+        }
             
-            Debug.Log(Mode);
+            //Debug.Log(Mode);
 
         if(8<=Click){
             Point=Point+2;
@@ -89,18 +100,26 @@ public class SinGiTai : MonoBehaviour
     yield break;
 } 
 
-
+//時間数える
     IEnumerator TimeCount(float time) 
     {
-        //コルーチンの内容
         for (int i = 1 ; i < time+1 ; i++ )
         {
+            /*
+            if (Input.GetKey(KeyCode.W)){
+                    Click++;
+                    Debug.Log(Click);
+                }else{
+                    Click--;
+                }
+                */
+
             Debug.Log("今" + i + "秒です");
             yield return new WaitForSeconds(1.0f);
             if (i == time)
             {
                 Debug.Log("コルーチンを終了しました");
-                
+                //yield return Click;
                 yield break;
              }
          }
