@@ -12,6 +12,10 @@ public class SinGiTai : MonoBehaviour
     public GameObject Good;
     public GameObject Bad;
 
+    public GameObject SiseiMeter;
+    public GameObject KiseiMeter;
+    public GameObject Microphone;
+
 
     void Start(){
         Point = 0;//初期化（いるのか？）
@@ -42,6 +46,8 @@ public class SinGiTai : MonoBehaviour
         float Click=0;
         //float Time = 3f;
 
+        SiseiMeter.gameObject.SetActive (true);
+
         //StartCoroutine(CountButtonClicks(Click,Time));
         yield return CountButtonClicks(x => Click = x);
 
@@ -60,12 +66,24 @@ public class SinGiTai : MonoBehaviour
                 StartCoroutine(Kutin(Bad));
             }
         
-        singitai.Kisei(Point);
+        SiseiMeter.gameObject.SetActive (false);
+        //singitai.Kisei(Point);
+        StartCoroutine(Kisei(Point));
             
     }
 
-    void Kisei(int Point){
+    IEnumerator Kisei(int Point){
         Debug.Log("気勢");
+        KiseiMeter.gameObject.SetActive (true);
+        Microphone.gameObject.SetActive (true);
+
+        //float timer = 3f; // カウントする時間（秒）
+        for (float timer=3f;timer > 0f;timer -= Time.deltaTime)
+        {
+            //Debug.Log(timer);
+            //timer -= Time.deltaTime; // 時間を減らす
+            yield return null; // 次のフレームまで待機
+    }
     }
 
 
