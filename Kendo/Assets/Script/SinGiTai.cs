@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
 public class SinGiTai : MonoBehaviour
 {
     [SerializeField] int Point = 0;
@@ -15,7 +16,6 @@ public class SinGiTai : MonoBehaviour
     public GameObject SiseiMeter;
     public GameObject KiseiMeter;
     public GameObject Microphone;
-
 
     void Start(){
         Point = 0;//初期化（いるのか？）
@@ -73,6 +73,8 @@ public class SinGiTai : MonoBehaviour
     }
 
     IEnumerator Kisei(int Point){
+        float MaxdB=0;
+
         Debug.Log("気勢");
         KiseiMeter.gameObject.SetActive (true);
         Microphone.gameObject.SetActive (true);
@@ -80,10 +82,30 @@ public class SinGiTai : MonoBehaviour
         //float timer = 3f; // カウントする時間（秒）
         for (float timer=3f;timer > 0f;timer -= Time.deltaTime)
         {
-            //Debug.Log(timer);
+            /*
+            if(micValueS.modified_dB > MaxdB){
+                MaxdB = micValueS.modified_dB;
+            }
+            */
+            Debug.Log(timer);
             //timer -= Time.deltaTime; // 時間を減らす
             yield return null; // 次のフレームまで待機
-    }
+        }
+
+        Debug.Log(MaxdB);
+
+        if(60<=MaxdB&&MaxdB<75){
+                Point=Point+2;
+                Debug.Log("良");
+                StartCoroutine(Kutin(Best));
+            }else if(50<=MaxdB&&MaxdB<60){
+                Point=Point+1;
+                Debug.Log("普");
+                StartCoroutine(Kutin(Good));
+            }else if(75<=MaxdB||MaxdB<50){
+                Debug.Log("悪");
+                StartCoroutine(Kutin(Bad));
+            }
     }
 
 
