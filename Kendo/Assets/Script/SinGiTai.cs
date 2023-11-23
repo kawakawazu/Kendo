@@ -12,6 +12,7 @@ public class SinGiTai : MonoBehaviour
     public GameObject Best;
     public GameObject Good;
     public GameObject Bad;
+    public GameObject Attack;
 
     public GameObject SiseiMeter;
     public GameObject KiseiMeter;
@@ -27,6 +28,7 @@ public class SinGiTai : MonoBehaviour
 
     //間合いの判定
     public void Maai(float X1,float X2){
+        Point = 0;
         float Maai = Mathf.Abs(X1-X2);
         int n=4;
         int m=10;
@@ -81,7 +83,7 @@ public class SinGiTai : MonoBehaviour
         float dB_valueMax=dB_Min;
 
         Debug.Log("気勢");
-        Debug.Log(dB_valueMax);
+        //Debug.Log(dB_valueMax);
         KiseiMeter.gameObject.SetActive (true);
         Microphone.gameObject.SetActive (true);
 
@@ -98,12 +100,13 @@ public class SinGiTai : MonoBehaviour
             dB_valueMax = micAS.now_dB;
             
             //Debug.Log("時間"+timer);
-            Debug.Log("dB"+dB_valueMax);
+            //Debug.Log("dB"+dB_valueMax);
             timer -= Time.deltaTime; // 時間を減らす
             yield return null; // 次のフレームまで待機
         }
         KiseiMeter.gameObject.SetActive (false);
         Microphone.gameObject.SetActive (false);
+        Debug.Log("dB"+dB_valueMax);
 
 
         if(-20 <= dB_valueMax && dB_valueMax <= dB_Max){
@@ -118,7 +121,30 @@ public class SinGiTai : MonoBehaviour
                 Debug.Log("悪");
                 StartCoroutine(Kutin(Bad));
             }
+
+            StartCoroutine(Result(Point));
     }
+
+    IEnumerator Result(int Point) 
+{
+    StartCoroutine(Kutin(Attack));
+
+    if(4<=Point){
+                Debug.Log("一本");
+                StartCoroutine(Kutin(Best));
+                //有効打＋１
+            }else if(2 <= Point&&Point < 4){
+                Debug.Log("無効");
+                StartCoroutine(Kutin(Good));
+            }else{
+                Debug.Log("失敗");
+                StartCoroutine(Kutin(Bad));
+            }
+        //有効打3だったらおわり。それ以外は戻る
+
+    yield break;
+} 
+
 
 
 //判定の画像表示コルーチン
