@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
  
-class LevelMeter : MonoBehaviour
+[SerializeField] public class LevelMeter : MonoBehaviour
 {
     //更新する対象のlevelMeter(uGUI Image)
     Image levelMeterImage = null;
@@ -21,6 +21,8 @@ class LevelMeter : MonoBehaviour
     //dBを取得する対象のmicAudioSource
     [SerializeField]
     private MicAudioSource micAS = null;
+
+    public float modified_dB;
  
     void Awake()
     {
@@ -42,16 +44,22 @@ class LevelMeter : MonoBehaviour
     /// </summary>
     /// <param name="dB">dB値</param>
     /// <returns>fillAmount値</returns>
-    float dB_ToFillAmountValue(float dB)
+   public float dB_ToFillAmountValue(float dB)
     {
         //入力されたdBをdB_MaxとdBMin値で切り捨て
-        float modified_dB = dB;
+        modified_dB = dB;
         if (modified_dB > dB_Max) { modified_dB = dB_Max; }
         else if (modified_dB < dB_Min) { modified_dB = dB_Min; }
+
+        
  
         //fillAmount値に変換(dB_Min=0.0f, dB_Max=1.0f)
         float fillAountValue = 1.0f + (modified_dB / (dB_Max - dB_Min));
         return fillAountValue;
+    }
+
+    public float GetNow_dB(){
+        return modified_dB;
     }
  
 }

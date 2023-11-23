@@ -17,6 +17,9 @@ public class SinGiTai : MonoBehaviour
     public GameObject KiseiMeter;
     public GameObject Microphone;
 
+    //public LevelMeter LM;
+    public MicAudioSource micAS;
+
     void Start(){
         Point = 0;//初期化（いるのか？）
         Debug.Log("Battle");
@@ -73,9 +76,12 @@ public class SinGiTai : MonoBehaviour
     }
 
     IEnumerator Kisei(int Point){
-        float MaxdB=0;
+        float dB_Min= -80.0f;
+        float dB_Max = -0.0f;
+        float dB_valueMax=dB_Min;
 
         Debug.Log("気勢");
+        Debug.Log(dB_valueMax);
         KiseiMeter.gameObject.SetActive (true);
         Microphone.gameObject.SetActive (true);
 
@@ -83,26 +89,32 @@ public class SinGiTai : MonoBehaviour
         for (float timer=3f;timer > 0f;timer -= Time.deltaTime)
         {
             /*
-            if(micValueS.modified_dB > MaxdB){
-                MaxdB = micValueS.modified_dB;
+            Debug.Log(micAS.now_dB+"転送後");
+            if(dB_valueMax < micAS.now_dB){
+                Debug.Log(dB_valueMax+"いま");
+                dB_valueMax = micAS.now_dB;
             }
             */
-            Debug.Log(timer);
-            //timer -= Time.deltaTime; // 時間を減らす
+            dB_valueMax = micAS.now_dB;
+            
+            //Debug.Log("時間"+timer);
+            Debug.Log("dB"+dB_valueMax);
+            timer -= Time.deltaTime; // 時間を減らす
             yield return null; // 次のフレームまで待機
         }
+        KiseiMeter.gameObject.SetActive (false);
+        Microphone.gameObject.SetActive (false);
 
-        Debug.Log(MaxdB);
 
-        if(60<=MaxdB&&MaxdB<75){
+        if(-20 <= dB_valueMax && dB_valueMax <= dB_Max){
                 Point=Point+2;
                 Debug.Log("良");
                 StartCoroutine(Kutin(Best));
-            }else if(50<=MaxdB&&MaxdB<60){
+            }else if(-40 <= dB_valueMax && dB_valueMax < -20){
                 Point=Point+1;
                 Debug.Log("普");
                 StartCoroutine(Kutin(Good));
-            }else if(75<=MaxdB||MaxdB<50){
+            }else if(dB_valueMax < -40){
                 Debug.Log("悪");
                 StartCoroutine(Kutin(Bad));
             }

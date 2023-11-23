@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
  
-class MicAudioSource : MonoBehaviour
+[SerializeField] public class MicAudioSource : MonoBehaviour
 {
     //サンプリング周波数
     static readonly int SAMPLE_RATE = 48000;
@@ -22,6 +22,14 @@ class MicAudioSource : MonoBehaviour
     //現在のdB値
     private float _now_dB;
     public float now_dB { get { return _now_dB; } }
+
+    //public SinGiTai SGT;
+
+    /*
+
+    [SerializeField] float m_gain = 1000; // 音量に掛ける倍率
+    float m_volumeRate; // 音量
+    */
  
     private void Awake()
     {
@@ -65,7 +73,30 @@ class MicAudioSource : MonoBehaviour
  
             //現在値（now_dB）を更新
             _now_dB = dB;
+
+            //Debug.Log(dB);
  
         }
+
+        
     }
+/*
+    //音量のうけわたし
+    private void OnAudioFilterRead(float[] data, int channels)
+    {
+        float sum = 0f;
+        for (int i = 0; i < data.Length; ++i)
+        {
+            sum += Mathf.Abs(data[i]); // データ（波形）の絶対値を足す
+        }
+        // データ数で割ったものに倍率をかけて音量とする
+        m_volumeRate = Mathf.Clamp(sum * 10000 / (float)data.Length,0,80);
+        Debug.Log(sum+"sum"+m_gain+"gain"+data.Length+"le");
+    }
+*/
+
+    public float GetNow_dB(float dBValue){
+        return dBValue;
+    }
+    
 }
