@@ -648,6 +648,7 @@ MonoBehaviour:
   KiseiMeter: {fileID: 290620168}
   Microphone: {fileID: 1214815307}
   micAS: {fileID: 1214815308}
+  P1: {fileID: 2101014161}
 --- !u!4 &1547641420
 Transform:
   m_ObjectHideFlags: 0
