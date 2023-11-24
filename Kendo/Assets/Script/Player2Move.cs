@@ -20,7 +20,11 @@ public class Player2Move : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
+        //transform.position= new Vector3(Mathf.Sin(Time.time)*10.0f+Player2pos.x,Player2pos.y,Player2pos.z);
+        Moving();
+    }
+
+    void Moving(){
         transform.position= new Vector3(Mathf.Sin(Time.time)*10.0f+Player2pos.x,Player2pos.y,Player2pos.z);
-        
     }
 }

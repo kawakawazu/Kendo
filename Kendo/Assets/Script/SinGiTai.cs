@@ -20,6 +20,7 @@ public class SinGiTai : MonoBehaviour
 
     //public LevelMeter LM;
     public MicAudioSource micAS;
+    public Player1Move P1;
 
     void Start(){
         Point = 0;//初期化（いるのか？）
@@ -31,7 +32,7 @@ public class SinGiTai : MonoBehaviour
         Point = 0;
         float Maai = Mathf.Abs(X1-X2);
         int n=4;
-        int m=10;
+        int m=20;
 
         if(n <= Maai && Maai <= m){
             Point=Point+1;
@@ -132,16 +133,16 @@ public class SinGiTai : MonoBehaviour
     if(4<=Point){
                 Debug.Log("一本");
                 StartCoroutine(Kutin(Best));
-                //有効打＋１
+                P1.Judge(1);
             }else if(2 <= Point&&Point < 4){
                 Debug.Log("無効");
                 StartCoroutine(Kutin(Good));
+                P1.Judge(0);
             }else{
                 Debug.Log("失敗");
                 StartCoroutine(Kutin(Bad));
+                P1.Judge(0);
             }
-        //有効打3だったらおわり。それ以外は戻る
-
     yield break;
 } 
 
