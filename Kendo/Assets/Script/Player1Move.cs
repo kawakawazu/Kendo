@@ -38,7 +38,7 @@ public class Player1Move : MonoBehaviour
             */
     }
 
-    void Moving(){
+    public void Moving(){
         // Aが押されたときに左に移動
         
             if (Input.GetKey(KeyCode.A))
@@ -61,9 +61,7 @@ public class Player1Move : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                singitai.Maai(pos.x,P2M.Player2pos.x);
-                
-                
+                singitai.Maai(pos.x,P2M.Player2pos.x);  
             }
     }
 

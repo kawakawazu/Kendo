@@ -25,6 +25,7 @@ public class SinGiTai : MonoBehaviour
     //public LevelMeter LM;
     public MicAudioSource micAS;
     public Player1Move P1;
+    public Player2Move P2;
 
     void Start(){
         Point = 0;//初期化（いるのか？）
@@ -149,13 +150,15 @@ public class SinGiTai : MonoBehaviour
                 StartCoroutine(Kutin(MISS));
                 P1.Judge(0);
             }
+    //P1.Moving();
+    //P2.Moving(false);
     yield break;
 } 
 
 
 
 //判定の画像表示コルーチン
-    public IEnumerator Kutin(GameObject HanteiBatch) 
+    IEnumerator Kutin(GameObject HanteiBatch) 
 {
     HanteiBatch.gameObject.SetActive (true);
  

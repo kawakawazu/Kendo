@@ -224,6 +224,7 @@ MonoBehaviour:
   Player2pos: {x: 0, y: 0, z: 0}
   _minX: 0
   _maxX: 0
+  isStop: 0
 --- !u!1 &142308364
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +958,7 @@ MonoBehaviour:
   Microphone: {fileID: 1214815307}
   micAS: {fileID: 1214815308}
   P1: {fileID: 2101014161}
+  P2: {fileID: 48712776}
 --- !u!4 &1547641420
 Transform:
   m_ObjectHideFlags: 0
@@ -1080,6 +1082,7 @@ MonoBehaviour:
   Player2pos: {x: 0, y: 0, z: 0}
   _minX: 0
   _maxX: 0
+  isStop: 0
 --- !u!4 &1674681103
 Transform:
   m_ObjectHideFlags: 0

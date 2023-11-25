@@ -11,26 +11,47 @@ public class Player2Move : MonoBehaviour
 
     // x軸方向の移動範囲の最大値
     [SerializeField] private float _maxX;
+
+    public bool isStop;
+    float V;
+
     // Start is called before the first frame update
     void Start()
     {
         //Player2pos = pos.x;
-        Moving();
+        //Moving();
+        isStop = false;
+        Moving(isStop);
     }
 
     //Update is called once per frame
     void Update()
     {
-        //transform.position= new Vector3(Mathf.Sin(Time.time)*10.0f+Player2pos.x,Player2pos.y,Player2pos.z);
-        if (Input.GetKeyDown(KeyCode.Space))
-            {
-                return;
-            }else{
-                Moving();
-            }
+        Moving(isStop);
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isStop)
+        {
+            isStop = true;
+        }
+        
+        else if (Input.GetKeyDown(KeyCode.Space) && isStop)
+        {
+            isStop = false;
+        }
+        
     }
 
-    void Moving(){
-        transform.position= new Vector3(Mathf.Sin(Time.time)*10.0f+Player2pos.x,-1.6f,Player2pos.z);
+    public void Moving(bool isStop){
+
+        transform.position= new Vector3(Mathf.Sin(Time.time)*V+Player2pos.x,-1.6f,Player2pos.z);
+
+        if (isStop)//falseの時
+        {
+            V = 0f;
+        }
+        else if (!isStop)//falseじゃないとき
+        {
+            V = 10.0f;
+        }
     }
 }
