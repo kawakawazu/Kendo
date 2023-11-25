@@ -15,16 +15,22 @@ public class Player2Move : MonoBehaviour
     void Start()
     {
         //Player2pos = pos.x;
+        Moving();
     }
 
     //Update is called once per frame
     void Update()
     {
         //transform.position= new Vector3(Mathf.Sin(Time.time)*10.0f+Player2pos.x,Player2pos.y,Player2pos.z);
-        Moving();
+        if (Input.GetKeyDown(KeyCode.Space))
+            {
+                return;
+            }else{
+                Moving();
+            }
     }
 
     void Moving(){
-        transform.position= new Vector3(Mathf.Sin(Time.time)*10.0f+Player2pos.x,Player2pos.y,Player2pos.z);
+        transform.position= new Vector3(Mathf.Sin(Time.time)*10.0f+Player2pos.x,-1.6f,Player2pos.z);
     }
 }

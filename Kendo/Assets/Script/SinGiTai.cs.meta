@@ -3,7 +3,17 @@ guid: 2304d7ec530adca4aabc80c296eb82af
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - singitai: {instanceID: 0}
+  - Best: {instanceID: 0}
+  - Good: {instanceID: 0}
+  - Bad: {instanceID: 0}
+  - Attack: {instanceID: 0}
+  - SiseiMeter: {instanceID: 0}
+  - KiseiMeter: {instanceID: 0}
+  - Microphone: {instanceID: 0}
+  - micAS: {instanceID: 0}
+  - P1: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

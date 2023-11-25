@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Player1Move : MonoBehaviour
 {
     public SinGiTai singitai;
     public Player2Move P2M;
+
+    public GameObject WIN;
 
     int YUKOUDA=0;
 
@@ -67,10 +70,24 @@ public class Player1Move : MonoBehaviour
     public void Judge(int IPPON){
         YUKOUDA=YUKOUDA+IPPON;
         if(YUKOUDA==3){
-            //リザルト
+            WIN.gameObject.SetActive (true);
             Debug.Log("勝利");
         }else{
             Moving();
         }
     }
+
+/*
+    IEnumerator Kutin(GameObject HanteiBatch) 
+{
+    HanteiBatch.gameObject.SetActive (true);
+ 
+    //2秒待つ
+    yield return new WaitForSeconds(2);
+ 
+    HanteiBatch.gameObject.SetActive (false);
+
+    yield break;
+}
+*/
 }

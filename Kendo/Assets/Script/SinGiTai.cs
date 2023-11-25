@@ -14,6 +14,10 @@ public class SinGiTai : MonoBehaviour
     public GameObject Bad;
     public GameObject Attack;
 
+    public GameObject IPPON;
+    public GameObject MUKOU;
+    public GameObject MISS;
+
     public GameObject SiseiMeter;
     public GameObject KiseiMeter;
     public GameObject Microphone;
@@ -130,17 +134,19 @@ public class SinGiTai : MonoBehaviour
 {
     StartCoroutine(Kutin(Attack));
 
+    yield return new WaitForSeconds(2);
+
     if(4<=Point){
                 Debug.Log("一本");
-                StartCoroutine(Kutin(Best));
+                StartCoroutine(Kutin(IPPON));
                 P1.Judge(1);
             }else if(2 <= Point&&Point < 4){
                 Debug.Log("無効");
-                StartCoroutine(Kutin(Good));
+                StartCoroutine(Kutin(MUKOU));
                 P1.Judge(0);
             }else{
                 Debug.Log("失敗");
-                StartCoroutine(Kutin(Bad));
+                StartCoroutine(Kutin(MISS));
                 P1.Judge(0);
             }
     yield break;
@@ -149,7 +155,7 @@ public class SinGiTai : MonoBehaviour
 
 
 //判定の画像表示コルーチン
-    IEnumerator Kutin(GameObject HanteiBatch) 
+    public IEnumerator Kutin(GameObject HanteiBatch) 
 {
     HanteiBatch.gameObject.SetActive (true);
  
