@@ -8,6 +8,8 @@ public class Player1Move : MonoBehaviour
     public SinGiTai singitai;
     public Player2Move P2M;
 
+    public GameObject guide01;
+    public GameObject STOP;
     public GameObject WIN;
 
     int YUKOUDA=0;
@@ -17,6 +19,7 @@ public class Player1Move : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(Kutin(guide01));
         //Moving();
     }
 
@@ -39,6 +42,7 @@ public class Player1Move : MonoBehaviour
     }
 
     public void Moving(){
+
         // Aが押されたときに左に移動
         
             if (Input.GetKey(KeyCode.A))
@@ -65,9 +69,13 @@ public class Player1Move : MonoBehaviour
             }
     }
 
-    public void Judge(int IPPON){
+    public IEnumerator Judge(int IPPON){
         YUKOUDA=YUKOUDA+IPPON;
         if(YUKOUDA==3){
+
+            StartCoroutine(Kutin(STOP));
+            yield return new WaitForSeconds(2);
+ 
             WIN.gameObject.SetActive (true);
             Debug.Log("勝利");
         }else{
@@ -75,7 +83,7 @@ public class Player1Move : MonoBehaviour
         }
     }
 
-/*
+
     IEnumerator Kutin(GameObject HanteiBatch) 
 {
     HanteiBatch.gameObject.SetActive (true);
@@ -87,5 +95,5 @@ public class Player1Move : MonoBehaviour
 
     yield break;
 }
-*/
+
 }

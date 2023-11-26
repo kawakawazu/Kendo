@@ -28,10 +28,12 @@ using UnityEngine.UI;
     {
         //更新する対象のImageを取得
         levelMeterImage = GetComponent<Image>();
+        Debug.Log("Awake");
     }
  
     void Update()
     {
+        
         //dB値からlevelMeterImage用のfillAountの値に変換
         float fillAmountValue = dB_ToFillAmountValue(micAS.now_dB);
  

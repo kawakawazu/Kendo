@@ -37,7 +37,7 @@ using System.Linq;
         micAS = GetComponent<AudioSource>();
     }
  
-    void Start()
+    void OnEnable()
     {
         //フレーム更新開始直後にマイクデバイスをスタートする
         this.MicStart();

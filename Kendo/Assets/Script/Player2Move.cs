@@ -21,23 +21,28 @@ public class Player2Move : MonoBehaviour
         //Player2pos = pos.x;
         //Moving();
         isStop = false;
-        Moving(isStop);
+        //Moving(isStop);
     }
 
     //Update is called once per frame
     void Update()
     {
+        
         Moving(isStop);
+        /*
 
         if (Input.GetKeyDown(KeyCode.Space) && !isStop)
         {
             isStop = true;
         }
         
+        
         else if (Input.GetKeyDown(KeyCode.Space) && isStop)
         {
             isStop = false;
         }
+        */
+        
         
     }
 

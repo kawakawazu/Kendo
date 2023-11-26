@@ -7,6 +7,7 @@ using System;
 public class SinGiTai : MonoBehaviour
 {
     [SerializeField] int Point = 0;
+    public float Click=4f;
     public SinGiTai singitai;
 
     public GameObject Best;
@@ -18,7 +19,11 @@ public class SinGiTai : MonoBehaviour
     public GameObject MUKOU;
     public GameObject MISS;
 
-    public GameObject SiseiMeter;
+    //public GameObject guide01;
+    public GameObject guide02;
+    public GameObject guide03;
+
+    //public GameObject SiseiMeter;
     public GameObject KiseiMeter;
     public GameObject Microphone;
 
@@ -57,7 +62,13 @@ public class SinGiTai : MonoBehaviour
         float Click=0;
         //float Time = 3f;
 
-        SiseiMeter.gameObject.SetActive (true);
+        //間合い判定待ち時間
+        yield return new WaitForSeconds(2);
+        StartCoroutine(Kutin(guide02));
+        yield return new WaitForSeconds(2);
+
+        //SiseiMeter.gameObject.SetActive (true);
+        
 
         //StartCoroutine(CountButtonClicks(Click,Time));
         yield return CountButtonClicks(x => Click = x);
@@ -76,9 +87,8 @@ public class SinGiTai : MonoBehaviour
                 Debug.Log("悪");
                 StartCoroutine(Kutin(Bad));
             }
-        
-        SiseiMeter.gameObject.SetActive (false);
         //singitai.Kisei(Point);
+        yield return new WaitForSeconds(2);
         StartCoroutine(Kisei(Point));
             
     }
@@ -90,6 +100,9 @@ public class SinGiTai : MonoBehaviour
 
         Debug.Log("気勢");
         //Debug.Log(dB_valueMax);
+        StartCoroutine(Kutin(guide03));
+        yield return new WaitForSeconds(2);
+
         KiseiMeter.gameObject.SetActive (true);
         Microphone.gameObject.SetActive (true);
 
@@ -128,6 +141,7 @@ public class SinGiTai : MonoBehaviour
                 StartCoroutine(Kutin(Bad));
             }
 
+            yield return new WaitForSeconds(2);
             StartCoroutine(Result(Point));
     }
 
@@ -140,15 +154,18 @@ public class SinGiTai : MonoBehaviour
     if(4<=Point){
                 Debug.Log("一本");
                 StartCoroutine(Kutin(IPPON));
-                P1.Judge(1);
+                yield return new WaitForSeconds(2);
+                StartCoroutine(P1.Judge(1));
             }else if(2 <= Point&&Point < 4){
                 Debug.Log("無効");
                 StartCoroutine(Kutin(MUKOU));
-                P1.Judge(0);
+                yield return new WaitForSeconds(2);
+                StartCoroutine(P1.Judge(0));
             }else{
                 Debug.Log("失敗");
                 StartCoroutine(Kutin(MISS));
-                P1.Judge(0);
+                yield return new WaitForSeconds(2);
+                StartCoroutine(P1.Judge(0));
             }
     //P1.Moving();
     //P2.Moving(false);
@@ -170,10 +187,10 @@ public class SinGiTai : MonoBehaviour
     yield break;
 } 
 
-private System.Collections.IEnumerator CountButtonClicks(Action<float> callback)
+public System.Collections.IEnumerator CountButtonClicks(Action<float> callback)
     {
         float timer = 3f; // カウントする時間（秒）
-        float Click=4f;
+        //float Click=4f;
 
         while (timer > 0f)
         {
@@ -187,6 +204,8 @@ private System.Collections.IEnumerator CountButtonClicks(Action<float> callback)
             timer -= Time.deltaTime; // 時間を減らす
             yield return null; // 次のフレームまで待機
         }
+
+        //SiseiMeter.gameObject.SetActive (false);
 
         Debug.Log("3秒間のクリック回数: " + Click); // 結果を表示
         callback.Invoke(Click);
