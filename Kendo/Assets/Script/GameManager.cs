@@ -6,10 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public Player1Move P1;
+    public Player2Move P2;
+
+    public GameObject Kaisi;
     
     
     void Start()
     {
+        StartCoroutine(GameStart());
 
     }
 
@@ -33,6 +38,18 @@ public class GameManager : MonoBehaviour
         //
         SceneManager.LoadScene("Battle");
         
+    }
+
+    IEnumerator GameStart(){
+
+        Kaisi.gameObject.SetActive (true);
+
+        yield return new WaitForSeconds(2);
+
+        Kaisi.gameObject.SetActive (false);
+        P1.gameObject.SetActive (true);
+        P2.gameObject.SetActive (true);
+
     }
 
 
